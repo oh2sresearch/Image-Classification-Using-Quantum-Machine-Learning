@@ -35,4 +35,4 @@ cd Image-Classification-Using-Quantum-Machine-Learning
 ## Running the Code
 - **Preprocess the Data:** Use the preprocessing scripts to prepare your image data.
 - **Train the Models:** Run the training scripts to train both quantum and classical image classification models.
-- **Evaluate the Models:** Use the evaluation scripts to assess the performance of the trained models.
+- **Evaluate the Models:** Use the evaluation scripts to assess the performance of trained models.
