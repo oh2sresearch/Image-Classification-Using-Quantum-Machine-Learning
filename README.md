@@ -36,3 +36,7 @@ cd Image-Classification-Using-Quantum-Machine-Learning
 - **Preprocess the Data:** Use the preprocessing scripts to prepare your image data.
 - **Train the Models:** Run the training scripts to train both quantum and classical image classification models.
 - **Evaluate the Models:** Use the evaluation scripts to assess the performance of trained models.
+
+### Dataset
+
+`Classification Using CNN.py` expects a directory structure with `ct` and `rt` folders containing 3D NIfTI files. Update the `data_path` variable at the bottom of the script to point to your dataset. If the folders or files cannot be found, the script now raises a clear error message indicating which directory is missing.
