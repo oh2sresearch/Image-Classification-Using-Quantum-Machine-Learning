@@ -14,10 +14,27 @@ class MedicalImageDataset(Dataset):
     def __init__(self, root_dir: str):
         self.ct_dir = os.path.join(root_dir, "ct")
         self.rt_dir = os.path.join(root_dir, "rt")
+
+        if not os.path.isdir(self.ct_dir):
+            raise FileNotFoundError(f"CT directory not found: {self.ct_dir}")
+        if not os.path.isdir(self.rt_dir):
+            raise FileNotFoundError(f"RT directory not found: {self.rt_dir}")
+
         self.ct_files = sorted(glob.glob(os.path.join(self.ct_dir, "*.nii")))
         self.rt_files = sorted(glob.glob(os.path.join(self.rt_dir, "*.nii")))
+
+        if len(self.ct_files) == 0:
+            raise FileNotFoundError(
+                f"No NIfTI files with extension '.nii' found in {self.ct_dir}"
+            )
+        if len(self.rt_files) == 0:
+            raise FileNotFoundError(
+                f"No NIfTI files with extension '.nii' found in {self.rt_dir}"
+            )
         if len(self.ct_files) != len(self.rt_files):
-            raise ValueError("Number of CT and RT files must match")
+            raise ValueError(
+                "Number of CT and RT files must match"
+            )
 
     def __len__(self) -> int:
         return len(self.ct_files)
@@ -34,6 +51,8 @@ class MedicalImageDataset(Dataset):
 
 def load_dataset_nifti(path: str):
     dataset = MedicalImageDataset(path)
+    if len(dataset) == 0:
+        raise ValueError(f"Dataset at {path} is empty")
     train_size = int(0.8 * len(dataset))
     test_size = len(dataset) - train_size
     return random_split(dataset, [train_size, test_size])
